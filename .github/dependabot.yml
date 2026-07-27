@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # This fork ships a prebuilt dist/ bundle; the app consumes dist/*.min.js
+  # directly. The npm dependencies are the frozen 2017-era gulp/browserify
+  # build toolchain -- they run only on a developer machine during a manual
+  # rebuild and never reach users, so their advisories are noise here.
+  # No npm update PRs at all (the limit blocks scheduled PRs, the ignore
+  # rule blocks security PRs).
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
