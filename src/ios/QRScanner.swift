@@ -30,7 +30,10 @@ class QRScanner : CDVPlugin, AVCaptureMetadataOutputObjectsDelegate {
                 }
             }
             
-            self.videoPreviewLayer?.connection?.videoOrientation = interfaceOrientationToVideoOrientation(UIApplication.shared.statusBarOrientation);
+            // With scenes (cordova-ios 8) UIApplication.statusBarOrientation is .unknown, which turned the
+            // preview upside down; the window scene knows the real orientation.
+            let orientation = self.window?.windowScene?.interfaceOrientation ?? UIInterfaceOrientation.portrait;
+            self.videoPreviewLayer?.connection?.videoOrientation = interfaceOrientationToVideoOrientation(orientation);
         }
         
         
